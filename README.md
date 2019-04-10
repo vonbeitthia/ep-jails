@@ -23,7 +23,7 @@ XXX {
    vnet;
    vnet.interface = e0a_b0_wan_$name, e0a_b1_dmz_$name;
    exec.prestart = "ep create $name b0_wan b1_dmz";
-   exec.prestart = "ep destroy $name b0_wan b1_dmz";
+   exec.poststop = "ep destroy $name b0_wan b1_dmz";
 }
 ```
 

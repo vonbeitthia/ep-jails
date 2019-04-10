@@ -58,6 +58,15 @@ def create(args):
         output = Popen('ifconfig {} name {} up'.format(sub('a$','b', epair),new_b).split(),
                 stdout=PIPE,
                 stderr=STDOUT)
+        # Attach one end to the bridge
+        if (args['aside']):
+            output = Popen('ifconfig {} addm {}'.format(bridge, new_a).split(),
+                stdout=PIPE,
+                stderr=STDOUT)
+        else:
+            output = Popen('ifconfig {} addm {}'.format(bridge, new_b).split(),
+                stdout=PIPE,
+                stderr=STDOUT)
     return
 
 
@@ -84,6 +93,9 @@ if __name__ == "__main__":
     parser.add_argument('-v', '--verbose',
             action='count', default=0,
             help='Increase the verbosity level by adding this argument multiple times.')
+    # Use the 'A' side of the epair instead of the default 'B' pair
+    parser.add_argument('-a', '--aside',
+            help="Use the 'A' side of the epair instead of the default 'B' pair.")
     # Subcommand: create
     parser_create = subparsers.add_parser(
             'create',
