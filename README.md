@@ -28,3 +28,10 @@ XXX {
 ```
 
 Enjoy.
+
+## To-Do
+
+The script needs error checking, e.g.:
+
+  - Check whether the interfaces already exist before trying to create or delete them.
+  - Catch and handle Exceptions.
