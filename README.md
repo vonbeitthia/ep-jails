@@ -44,6 +44,27 @@ XXX {
 
 Enjoy.
 
+```bash
+tom:ep-jails/ (master) $ ./ep.py -h
+usage: ep.py [-h] [-v] [-a ASIDE] {create,destroy} ...
+
+Create and destroy epair interfaces for jails.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -v, --verbose         Increase the verbosity level by adding this argument
+                        multiple times.
+  -a ASIDE, --aside ASIDE
+                        Use the 'A' side of the epair instead of the default
+                        'B' pair.
+
+Commands:
+  {create,destroy}
+    create              Create epair interfaces for the given jail.
+    destroy             Destroy the epair interfaces for the given jail.
+tom:ep-jails/ (master) $
+```
+
 ## To-Do
 
 The script needs error checking, e.g.:
