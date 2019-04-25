@@ -54,6 +54,10 @@ def create(args):
         output = Popen('ifconfig {} name {} up'.format(epair,new_a).split(),
                 stdout=PIPE,
                 stderr=STDOUT)
+        stdout,stderr = output.communicate()
+        if (debug_level>=2):
+            print("[DEBUG] out: {}".format(stdout))
+            print("[DEBUG] err: {}".format(stderr))
         if (debug_level>=1): print("[INFO] Creating {}...".format(new_b))
         output = Popen('ifconfig {} name {} up'.format(sub('a$','b', epair),new_b).split(),
                 stdout=PIPE,
