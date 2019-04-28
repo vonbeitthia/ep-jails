@@ -88,30 +88,31 @@ def destroy(args):
 
 
 if __name__ == "__main__":
-    
-    # Define the arguments to the program
-    parser = argparse.ArgumentParser(
-            description='Create and destroy epair interfaces for jails.')
-    subparsers = parser.add_subparsers(title='Commands',dest='cmd')
-    # Verbosity in debug level
+    parser = argparse.ArgumentParser(description='Create and destroy epair interfaces for jails.')
+    # Option: verbosity in debug level
     parser.add_argument('-v', '--verbose',
             action='count', default=0,
             help='Increase the verbosity level by adding this argument multiple times.')
-    # Use the 'A' side of the epair instead of the default 'B' pair
+    # Option: use the 'A' side of the epair instead of the default 'B' pair
     parser.add_argument('-a', '--aside',
+            action='store_true',
             help="Use the 'A' side of the epair instead of the default 'B' pair.")
-    # Subcommand: create
+
+    # We have two commands: create new interfaces or destroy existing ones.
+    subparsers = parser.add_subparsers(title='Commands',dest='cmd')
+    # Command: create
     parser_create = subparsers.add_parser(
             'create',
             help='Create epair interfaces for the given jail.')
     parser_create.add_argument('name', help='The name of the jail')
     parser_create.add_argument('bridge', nargs='+')
-    # Subcommand: destroy
+    # Command: destroy
     parser_destroy = subparsers.add_parser(
             'destroy', 
             help='Destroy the epair interfaces for the given jail.')
     parser_destroy.add_argument('name', help='The name of the jail')
     parser_destroy.add_argument('bridge', nargs='+')
+
     # Parse the argument and call the function create() or destroy()
     args = parser.parse_args()
     debug_level = vars(args)['verbose']
