@@ -70,7 +70,7 @@ tom:ep-jails/ (master) $
 The script needs error checking, e.g.:
 
   - Check whether the interfaces already exist before trying to create or delete them.
-  - Check for the maximum length of interface names (which is 16, including terminating '\0' -- [source][1]).
+  - Check for the maximum length of interface names (which is 16, including terminating '\0' -- [source][2]).
   - Catch and handle Exceptions.
 
-  [1]: https://github.com/freebsd/freebsd/blob/master/sys/net/if.h
+  [2]: https://github.com/freebsd/freebsd/blob/master/sys/net/if.h
