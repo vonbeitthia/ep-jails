@@ -18,10 +18,8 @@ This, added with the fact that I don't understand a thing of the script, my bash
 
 ## Installation
 
-The _install_ file assumes scripts are to be installed in _/usr/local/scripts/_ and creates a symlink to that directory.
+The _install_ file assumes scripts are to be installed in _/usr/local/bin/_ and creates a symlink to that directory.
 Possibly this needs to be done as root.
-
-> This should be changed to _/usr/local/bin/_ as the _bin/_ folder contains "common utilities, programming tools, and applications" (`man tier`). This change has the added benefit that the script is in the default $PATH.
 
 ## Usage
 
