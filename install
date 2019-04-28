@@ -1,2 +1,2 @@
 #!/bin/sh
-ln -s /home/tom/programming/python/ep-jails/ep.py /usr/local/scripts/ep
+ln -s /home/tom/programming/python/ep-jails/ep.py /usr/local/bin/ep
