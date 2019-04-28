@@ -18,10 +18,8 @@ This, added with the fact that I don't understand a thing of the script, my bash
 
 ## Installation
 
-The _install_ file assumes scripts are to be installed in _/usr/local/scripts/_ and creates a symlink to that directory.
+The _install_ file assumes scripts are to be installed in _/usr/local/bin/_ and creates a symlink to that directory.
 Possibly this needs to be done as root.
-
-> This should be changed to _/usr/local/bin/_ as the _bin/_ folder contains "common utilities, programming tools, and applications" (`man tier`). This change has the added benefit that the script is in the default $PATH.
 
 ## Usage
 
@@ -72,7 +70,7 @@ tom:ep-jails/ (master) $
 The script needs error checking, e.g.:
 
   - Check whether the interfaces already exist before trying to create or delete them.
-  - Check for the maximum length of interface names (which is 16, including terminating '\0' -- [source][1]).
+  - Check for the maximum length of interface names (which is 16, including terminating '\0' -- [source][2]).
   - Catch and handle Exceptions.
 
-  [1]: https://github.com/freebsd/freebsd/blob/master/sys/net/if.h
+  [2]: https://github.com/freebsd/freebsd/blob/master/sys/net/if.h
