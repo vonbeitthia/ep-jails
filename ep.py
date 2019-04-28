@@ -28,14 +28,20 @@ import argparse
 from pprint import pprint
 from re import sub
 from subprocess import Popen, PIPE, STDOUT
+from sys import exit
 
-
+IF_NAMESIZE = 16 # /sys/net/if.h
 debug_level = 0
 
 
+# usage: ep.py create [-h] name bridge [bridge ...]
+#
+# For each bridge listed, create an epair and assign one end to the jail
+# and the other to the bridge.
 def create(args):
     jail = args['name']
-    if (debug_level>=2): print("[DEBUG] Jail: {}".format(jail))
+    if (debug_level>=2): print("[DEBUG] Jail name: {}".format(jail))
+    # Loop through the list of bridges and create an epair for each.
     for i, bridge in enumerate(args['bridge']):
         if (debug_level>=2): print("[DEBUG] Bridge: {}".format(bridge))
         # Create a new epair
@@ -48,6 +54,9 @@ def create(args):
         # Rename the epair and bring the interfaces up
         new_a = 'e' + str(i) + 'a_' + bridge + '_' + jail
         new_b = 'e' + str(i) + 'b_' + bridge + '_' + jail
+        if (len(new_a)>=IF_NAMESIZE):
+            print("[ERROR] Interface name too long.")
+            exit(1)
         if (debug_level>=2): print("[DEBUG] new_a: {}".format(new_a))
         if (debug_level>=2): print("[DEBUG] new_b: {}".format(new_b))
         if (debug_level>=1): print("[INFO] Creating {}...".format(new_a))
