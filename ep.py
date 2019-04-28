@@ -38,6 +38,10 @@ debug_level = 0
 #
 # For each bridge listed, create an epair and assign one end to the jail
 # and the other to the bridge.
+#
+# The default (long) names are: e<i>[ab]_<bridge>_<name>
+# The short names are: <name><i>[ab]
+#
 def create(args):
     jail = args['name']
     if (debug_level>=2): print("[DEBUG] Jail name: {}".format(jail))
@@ -52,11 +56,15 @@ def create(args):
         epair = stdout.decode('UTF-8').strip()
         if (debug_level>=2): print("[DEBUG] epair: {}".format(epair))
         # Rename the epair and bring the interfaces up
-        new_a = 'e' + str(i) + 'a_' + bridge + '_' + jail
-        new_b = 'e' + str(i) + 'b_' + bridge + '_' + jail
-        if (len(new_a)>=IF_NAMESIZE):
-            print("[ERROR] Interface name too long.")
-            exit(1)
+        if(not args['short_names']):
+            new_a = 'e' + str(i) + 'a_' + bridge + '_' + jail
+            new_b = 'e' + str(i) + 'b_' + bridge + '_' + jail
+            if (len(new_a)>=IF_NAMESIZE):
+                print("[ERROR] Interface name too long. Using short names instead.")
+                args['short_names'] = True
+        if(args['short_names']):
+            new_a = jail + str(i) + 'a'
+            new_b = jail + str(i) + 'b'
         if (debug_level>=2): print("[DEBUG] new_a: {}".format(new_a))
         if (debug_level>=2): print("[DEBUG] new_b: {}".format(new_b))
         if (debug_level>=1): print("[INFO] Creating {}...".format(new_a))
@@ -105,7 +113,11 @@ if __name__ == "__main__":
     # Option: use the 'A' side of the epair instead of the default 'B' pair
     parser.add_argument('-a', '--aside',
             action='store_true',
-            help="Use the 'A' side of the epair instead of the default 'B' pair.")
+            help="Connect the 'A' side of the epair to the bridge.")
+    # Option: use short names instead of the default long names
+    parser.add_argument('-s', '--short_names',
+            action='store_true',
+            help="Use short names instead of the default long names.")
 
     # We have two commands: create new interfaces or destroy existing ones.
     subparsers = parser.add_subparsers(title='Commands',dest='cmd')
