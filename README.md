@@ -21,6 +21,8 @@ This, added with the fact that I don't understand a thing of the script, my bash
 The _install_ file assumes scripts are to be installed in _/usr/local/scripts/_ and creates a symlink to that directory.
 Possibly this needs to be done as root.
 
+> This should be changed to _/usr/local/bin/_ as the _bin/_ folder contains "common utilities, programming tools, and applications" (`man tier`). This change has the added benefit that the script is in the default $PATH.
+
 ## Usage
 
 First you should manually create the bridges, e.g. by putting the following lines in _/etc/rc.conf_:
@@ -70,4 +72,7 @@ tom:ep-jails/ (master) $
 The script needs error checking, e.g.:
 
   - Check whether the interfaces already exist before trying to create or delete them.
+  - Check for the maximum length of interface names (which is 16, including terminating '\0' -- [source][1]).
   - Catch and handle Exceptions.
+
+  [1]: https://github.com/freebsd/freebsd/blob/master/sys/net/if.h
